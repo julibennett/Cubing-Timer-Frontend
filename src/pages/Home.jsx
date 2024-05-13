@@ -62,7 +62,7 @@ const Home = () => {
             <ul>
                 {solves.map((solve) => (
                     <li key={solve.id}>
-                        {solve.time} seconds
+                        {solve.solvetime} seconds
                         <button onClick={() => deleteSolves(solve.id)}>Delete</button>
                     </li>
                 ))}

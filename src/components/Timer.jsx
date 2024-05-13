@@ -4,10 +4,10 @@ const Timer = ({ onNewSolve }) => {
     const [scramble, setScramble] = useState('')
     const [time, setTime] = useState(0)
     const [isRunning, setIsRunning] = useState(false)
-    const [intervalId, setIntervalId] = useState(null)
+    const [timerId, setTimerId] = useState(null)
 
     useEffect(() => {
-        generateScramble()
+        setScramble(generateScramble())
         const handleSpacebar = (event) => {
             if (event.code === 'Space') {
                 toggleTimer();
@@ -17,7 +17,7 @@ const Timer = ({ onNewSolve }) => {
         return () => {
             window.removeEventListener('keydown', handleSpacebar)
         }
-    }, [isRunning])
+    }, [])
 
     const generateScramble = () => {
         const moves = ['U', 'D', 'L', 'R', 'F', 'B']
@@ -43,19 +43,18 @@ const Timer = ({ onNewSolve }) => {
     }
 
     const toggleTimer = () => {
-        setIsRunning(!isRunning)
+        setIsRunning(running => !running)
         if (!isRunning) {
             setTime(0)
-            const newIntervalId = setInterval(() => {
-                setTime(prevTime => prevTime + 1)
+            const id = setInterval(() => {
+                setTime(t => t + 1)
             }, 1000)
-            setIntervalId(newIntervalId)
-        } else {  
-            clearInterval(intervalId)
-            setIntervalId(null)
+            setTimerId(id)
+        } else {
+            clearInterval(timerId)
             onNewSolve(time)
         }
-    };
+    }
 
     return (
         <div>
