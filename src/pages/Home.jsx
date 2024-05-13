@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
+import Timer from "../components/Timer"
 import api from '../api'
 
 const Home = () => {
     const [solves, setSolves] = useState([])
+    const [solvetime, setSolveTime] = useState('')
 
     useEffect(() => {
         getSolves()
@@ -33,9 +35,16 @@ const Home = () => {
 
   return (
     <div>
-        <div>
+       <Timer onNewSolve={createSolve} />
             <h3>Session Solves</h3>
-        </div>
+            <ul>
+                {solves.map((solve) => (
+                    <li key={solve.id}>
+                        {solve.time} seconds
+                        <button onClick={() => deleteSolves(solve.id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
     </div>
   )
 }

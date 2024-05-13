@@ -4,6 +4,7 @@ const Timer = ({ onNewSolve }) => {
     const [scramble, setScramble] = useState('')
     const [time, setTime] = useState(0)
     const [isRunning, setIsRunning] = useState(false)
+    const [intervalId, setIntervalId] = useState(null)
 
     useEffect(() => {
         generateScramble()
@@ -16,7 +17,7 @@ const Timer = ({ onNewSolve }) => {
         return () => {
             window.removeEventListener('keydown', handleSpacebar)
         }
-    }, [])
+    }, [isRunning])
 
     const generateScramble = () => {
         const moves = ['U', 'D', 'L', 'R', 'F', 'B']
@@ -42,21 +43,17 @@ const Timer = ({ onNewSolve }) => {
     }
 
     const toggleTimer = () => {
-        if (isRunning) {
-            setIsRunning(false)
-            onNewSolve(time)
-        } else {
-            setTime(0)
-            setIsRunning(true)
+        setIsRunning(!isRunning)
+        if (!isRunning) {
+            setTime(0);  // Reset the time
             const intervalId = setInterval(() => {
-                if (isRunning) {
-                    setTime((prevTime) => prevTime + 1)
-                }
-            }, 1000)
-            return () => clearInterval(intervalId)
-        
-    }
-}
+                setTime(prevTime => prevTime + 1);
+            }, 1000);
+            return () => clearInterval(intervalId);
+        } else {  // If it was running, stop and log the time
+            onNewSolve(time);
+        }
+    };
 
     return (
         <div>
