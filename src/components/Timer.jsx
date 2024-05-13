@@ -17,7 +17,7 @@ const Timer = ({ onNewSolve }) => {
         return () => {
             window.removeEventListener('keydown', handleSpacebar)
         }
-    }, [])
+    }, [isRunning])
 
     const generateScramble = () => {
         const moves = ['U', 'D', 'L', 'R', 'F', 'B']
@@ -43,23 +43,24 @@ const Timer = ({ onNewSolve }) => {
     }
 
     const toggleTimer = () => {
-        setIsRunning(running => !running)
-        if (!isRunning) {
-            setTime(0)
-            const id = setInterval(() => {
-                setTime(t => t + 1)
-            }, 1000)
-            setTimerId(id)
-        } else {
-            clearInterval(timerId)
-            onNewSolve(time)
+        if (!isRunning) {  
+            setIsRunning(true);
+            setTimerId(setInterval(() => {
+                setTime(prevTime => prevTime + 1);
+            }, 10));
+            // setTimerId(timerId)
+        } else {  
+            clearInterval(timerId);
+            setIsRunning(false);
+            onNewSolve(time/100);
+            setTime(0);
         }
-    }
+    };
 
     return (
         <div>
             <h3>{scramble}</h3>
-            <h1>{time} seconds</h1>
+            <h1>{(time / 100).toFixed(2)} seconds</h1>
         </div>
     )
 }
