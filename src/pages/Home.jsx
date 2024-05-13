@@ -15,7 +15,7 @@ const Home = () => {
         .catch((err) => alert(err))
     }
 
-    const deleteNote = (id) => {
+    const deleteSolves = (id) => {
         api.delete(`/api/solves/delete/${id}/`).then((res) => {
             if (res.status === 204) alert ('Solve deleted!')
             else alert('Failed to delete solve!')
