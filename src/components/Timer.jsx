@@ -45,13 +45,15 @@ const Timer = ({ onNewSolve }) => {
     const toggleTimer = () => {
         setIsRunning(!isRunning)
         if (!isRunning) {
-            setTime(0);  // Reset the time
-            const intervalId = setInterval(() => {
-                setTime(prevTime => prevTime + 1);
-            }, 1000);
-            return () => clearInterval(intervalId);
-        } else {  // If it was running, stop and log the time
-            onNewSolve(time);
+            setTime(0)
+            const newIntervalId = setInterval(() => {
+                setTime(prevTime => prevTime + 1)
+            }, 1000)
+            setIntervalId(newIntervalId)
+        } else {  
+            clearInterval(intervalId)
+            setIntervalId(null)
+            onNewSolve(time)
         }
     };
 
