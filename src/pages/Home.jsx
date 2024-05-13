@@ -57,12 +57,12 @@ const Home = () => {
 
   return (
     <div>
-       <Timer onNewSolve={(time) => createSolve(time, '3x3')} />
+       <Timer onNewSolve={(solvetime) => createSolve(solvetime, '3x3')} />
             <h3>Session Solves</h3>
             <ul>
                 {solves.map((solve) => (
                     <li key={solve.id}>
-                        {solve.solvetime} seconds
+                        {solve.solvetime.toFixed(2)} seconds
                         <button onClick={() => deleteSolves(solve.id)}>Delete</button>
                     </li>
                 ))}

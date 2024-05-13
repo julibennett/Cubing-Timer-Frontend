@@ -51,9 +51,10 @@ const Timer = ({ onNewSolve }) => {
             // setTimerId(timerId)
         } else {  
             clearInterval(timerId);
+            console.log("Time before sending to onNewSolve:", time / 100)
             setIsRunning(false);
             onNewSolve(time/100);
-            setTime(0);
+            // setTime(0);
         }
     };
 
