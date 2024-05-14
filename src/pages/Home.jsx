@@ -37,6 +37,7 @@ const Home = () => {
     }
 
     const createSolve = (solvetime) => {
+        console.log('Received time for solve:', solvetime)
         const payload = {
             solvetime: solvetime,
             event: '3x3',

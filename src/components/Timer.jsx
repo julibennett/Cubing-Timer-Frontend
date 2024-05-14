@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const Timer = ({ onNewSolve }) => {
     const [scramble, setScramble] = useState('')
-    const [time, setTime] = useState(0)
-    const [isRunning, setIsRunning] = useState(false)
-    const [timerId, setTimerId] = useState(null)
+    const preciseTimer = useRef(0); // Holds precise timer value without causing re-renders
+    const [timerDisplay, setTimerDisplay] = useState(0);
+    const timerId = useRef(null); // This holds the interval ID
+    const isRunning = useRef(false); // Track running state
+
 
     useEffect(() => {
         setScramble(generateScramble())
@@ -17,7 +19,7 @@ const Timer = ({ onNewSolve }) => {
         return () => {
             window.removeEventListener('keydown', handleSpacebar)
         }
-    }, [isRunning])
+    }, [])
 
     const generateScramble = () => {
         const moves = ['U', 'D', 'L', 'R', 'F', 'B']
@@ -43,32 +45,25 @@ const Timer = ({ onNewSolve }) => {
     }
 
     const toggleTimer = () => {
-        if (!isRunning) {  
-            setIsRunning(true)
-            setTime(0)
-            setTimerId(setInterval(() => {
-                setTime(prevTime => prevTime + 1)
-            }, 10))
-        //     if (time !== 0) {
-        //     setTime(time)
-        // }
-        // } else {
-        //     setTime(0)
-        // }
-            // setTimerId(timerId)
-        } else {  
-            clearInterval(timerId);
-            console.log("Time before sending to onNewSolve:", time / 100)
-            setIsRunning(false)
-            onNewSolve(time/100)
-            // setTime(0);
+        if (!isRunning.current) {
+            isRunning.current = true;
+            preciseTimer.current = 0; // Reset precise timer
+            setTimerDisplay(0); // Also reset the display timer
+            timerId.current = setInterval(() => {
+                preciseTimer.current += 0.01;
+                setTimerDisplay(old => old + 0.01); // Update display
+            }, 10);
+        } else {
+            clearInterval(timerId.current);
+            isRunning.current = false;
+            onNewSolve(preciseTimer.current.toFixed(2));
         }
     };
 
     return (
         <div>
             <h3>{scramble}</h3>
-            <h1>{(time / 100).toFixed(2)} seconds</h1>
+            <h1>{timerDisplay.toFixed(2)} seconds</h1>
         </div>
     )
 }
