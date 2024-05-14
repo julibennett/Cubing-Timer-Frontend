@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 
 const Timer = ({ onNewSolve }) => {
     const [scramble, setScramble] = useState('')
-    const preciseTimer = useRef(0); // Holds precise timer value without causing re-renders
-    const [timerDisplay, setTimerDisplay] = useState(0);
-    const timerId = useRef(null); // This holds the interval ID
-    const isRunning = useRef(false); // Track running state
+    const preciseTimer = useRef(0)
+    const [timerDisplay, setTimerDisplay] = useState(0)
+    const timerId = useRef(null)
+    const isRunning = useRef(false)
 
 
     useEffect(() => {
@@ -47,11 +47,11 @@ const Timer = ({ onNewSolve }) => {
     const toggleTimer = () => {
         if (!isRunning.current) {
             isRunning.current = true;
-            preciseTimer.current = 0; // Reset precise timer
-            setTimerDisplay(0); // Also reset the display timer
+            preciseTimer.current = 0;
+            setTimerDisplay(0); 
             timerId.current = setInterval(() => {
                 preciseTimer.current += 0.01;
-                setTimerDisplay(old => old + 0.01); // Update display
+                setTimerDisplay(old => old + 0.01); 
             }, 10);
         } else {
             clearInterval(timerId.current);
