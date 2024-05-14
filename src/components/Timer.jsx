@@ -44,16 +44,23 @@ const Timer = ({ onNewSolve }) => {
 
     const toggleTimer = () => {
         if (!isRunning) {  
-            setIsRunning(true);
+            setIsRunning(true)
+            setTime(0)
             setTimerId(setInterval(() => {
-                setTime(prevTime => prevTime + 1);
-            }, 10));
+                setTime(prevTime => prevTime + 1)
+            }, 10))
+        //     if (time !== 0) {
+        //     setTime(time)
+        // }
+        // } else {
+        //     setTime(0)
+        // }
             // setTimerId(timerId)
         } else {  
             clearInterval(timerId);
             console.log("Time before sending to onNewSolve:", time / 100)
-            setIsRunning(false);
-            onNewSolve(time/100);
+            setIsRunning(false)
+            onNewSolve(time/100)
             // setTime(0);
         }
     };

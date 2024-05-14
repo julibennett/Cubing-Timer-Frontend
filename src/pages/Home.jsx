@@ -4,7 +4,7 @@ import api from '../api'
 
 const Home = () => {
     const [solves, setSolves] = useState([])
-    const [solvetime, setSolveTime] = useState('')
+    // const [solvetime, setSolveTime] = useState('')
 
     useEffect(() => {
         getSolves()
@@ -36,17 +36,17 @@ const Home = () => {
         })
     }
 
-    const createSolve = (solvetime, event) => {
+    const createSolve = (solvetime) => {
         const payload = {
             solvetime: solvetime,
-            event: event,
+            event: '3x3',
         }
     
         api.post('/api/solves/', payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then((response) => {
+        }).then(() => {
             console.log('Solve created!')
             getSolves()
         }).catch((error) => {
@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <div>
-       <Timer onNewSolve={(solvetime) => createSolve(solvetime, '3x3')} />
+       <Timer onNewSolve={(createSolve)} />
             <h3>Session Solves</h3>
             <ul>
                 {solves.map((solve) => (
