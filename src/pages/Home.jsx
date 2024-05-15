@@ -4,7 +4,8 @@ import api from '../api'
 
 const Home = () => {
     const [solves, setSolves] = useState([])
-    // const [solvetime, setSolveTime] = useState('')
+    const [editingId, setEditingId] = useState(null)
+    const [editingTime, setEditingTime] = useState('')
 
     useEffect(() => {
         getSolves()
@@ -13,8 +14,8 @@ const Home = () => {
     const getSolves = () => {
         api.get('/api/solves/')
         .then((res) => {
-            setSolves(res.data)
             console.log(res.data)
+            setSolves(res.data)
         })
         .catch((err) => {
             console.error('Error fetching solves:', err)
@@ -36,6 +37,46 @@ const Home = () => {
         })
     }
 
+    const startEdit = (solve) => {
+        setEditingId(solve.id);
+        setEditingTime(String(solve.solvetime.toString()));    }
+
+    const cancelEdit = () => {
+        setEditingId(null);
+        setEditingTime('');
+    }
+
+    const editSolve = (id, newSolveTime) => {
+        console.log("Received new solve time:", newSolveTime)
+        const parsedTime = parseFloat(newSolveTime);
+
+    if (isNaN(parsedTime) || parsedTime <= 0) {
+        alert("Please enter a valid solve time.");
+        return;
+    }
+        const payload = {
+            solvetime: parseFloat(newSolveTime),
+            event: '3x3',  
+        };
+
+        console.log('Updating solve with ID:', id);
+        console.log('Payload:', payload);
+    
+        api.put(`/api/solves/${id}/`, payload, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            console.log('Solve updated!');
+            getSolves();
+            cancelEdit()
+        }).catch((error) => {
+            console.error('Failed to update solve:', error);
+            alert('Failed to update solve:', error.message);
+        });
+    };
+    
+
     const createSolve = (solvetime) => {
         console.log('Received time for solve:', solvetime)
         const payload = {
@@ -56,20 +97,40 @@ const Home = () => {
         })
     }
 
-  return (
-    <div>
-       <Timer onNewSolve={(createSolve)} />
+    return (
+        <div>
+            <Timer onNewSolve={createSolve} />
             <h3>Session Solves</h3>
             <ul>
                 {solves.map((solve) => (
                     <li key={solve.id}>
-                        {solve.solvetime.toFixed(2)} seconds
-                        <button onClick={() => deleteSolves(solve.id)}>Delete</button>
+                        {editingId === solve.id ? (
+                            <>
+                                <input 
+                                    type="number" 
+                                    value={editingTime} 
+                                    onChange={(e) => {
+                                        console.log('Input change:', e.target.value)
+                                        setEditingTime(e.target.value)
+                                    }} 
+                                    step="0.01"
+                                    min="0.01"
+                                />
+                                <button onClick={() => editSolve(solve.id, editingTime)} >Save</button>
+                                <button onClick={cancelEdit}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                {solve.solvetime.toFixed(2)} seconds
+                                <button onClick={() => deleteSolves(solve.id)}>Delete</button>
+                                <button onClick={() => startEdit(solve)}>Edit</button>
+                            </>
+                        )}
                     </li>
                 ))}
             </ul>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Home
