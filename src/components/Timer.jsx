@@ -57,6 +57,7 @@ const Timer = ({ onNewSolve }) => {
             clearInterval(timerId.current);
             isRunning.current = false;
             onNewSolve(preciseTimer.current.toFixed(2));
+            setScramble(generateScramble())
         }
     };
 
