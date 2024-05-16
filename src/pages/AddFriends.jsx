@@ -13,7 +13,8 @@ const handleSearch = async () => {
         return
     } 
     try {
-        const response = await api.get(`/search-users/?username=${searchTerm}`)
+        const response = await api.get(`/api/search-users/?username=${searchTerm}`)
+        console.log(response.data)
         setSearchResults(response.data)
         setError('')
     } catch(err) {
@@ -23,8 +24,12 @@ const handleSearch = async () => {
 }
 
 const handleAddFriend = async(userId) => {
+    if (!userId) {
+        console.log('Invalid user ID provided');
+        return;
+    }
     try{
-        await api.post('/add-friends/', {friend: userId})
+        await api.post('/api/add-friend/', {friend: userId})
         console.log('Friend added successfully.')
         setSearchResults([])
     } catch(err) {
