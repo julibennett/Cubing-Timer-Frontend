@@ -24,7 +24,7 @@ const handleSearch = async () => {
 
 const handleAddFriend = async(userId) => {
     try{
-        await api.post('/add-friend/', {friend: userId})
+        await api.post('/add-friends/', {friend: userId})
         console.log('Friend added successfully.')
         setSearchResults([])
     } catch(err) {
