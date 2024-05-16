@@ -21,20 +21,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route 
-        path='/' 
-        element={
-          <ProtectedRoute>
-            <Home />
-            <AddFriends />
-          </ProtectedRoute>
-        }
-        />
-        <Route path='/login' element={<Login />}/>
-        <Route path='/logout' element={<Logout />}/>
-        <Route path='/register' element={<RegisterAndLogout />}/>
-        <Route path='*' element={<NotFound />}/>
-        <Route path="/add-friends" element={AddFriends} />
+        <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path='/add-friends' element={<ProtectedRoute><AddFriends /></ProtectedRoute>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
+        <Route path='/register' element={<RegisterAndLogout />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
