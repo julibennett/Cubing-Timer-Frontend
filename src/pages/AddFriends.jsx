@@ -22,9 +22,37 @@ const handleSearch = async () => {
     }
 }
 
+const handleAddFriend = async(userId) => {
+    try{
+        await api.post('/add-friend/', {friend: userId})
+        console.log('Friend added successfully.')
+        setSearchResults([])
+    } catch(err) {
+        console.log('Failed to add friend.')
+        console.error(err)
+    }
+}
+
   return (
-    <div>AddFriends</div>
-  )
+        <div>
+            <h1>Add Friends</h1>
+            <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by username"
+            />
+            <button onClick={handleSearch}>Search</button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <ul>
+                {searchResults.map((user) => (
+                    <li key={user.id}>
+                        {user.username}
+                        <button onClick={() => handleAddFriend(user.id)}>Add Friend</button>
+                    </li>
+                ))}
+            </ul>
+        </div>  )
 }
 
 export default AddFriends
