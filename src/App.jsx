@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import AddFriends from './pages/AddFriends'
 import ProtectedRoute from './components/ProtectedRoute'
+import Profile from './pages/Profile'
 
 function Logout() {
   localStorage.clear()
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path='/add-friends' element={<ProtectedRoute><AddFriends /></ProtectedRoute>} />
+        <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/login' element={<Login />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<RegisterAndLogout />} />
