@@ -25,7 +25,9 @@ const Profile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      await api.put('/api/profile/update/', { bio, friends });
+      const response = await api.put('/api/profile/update/', { bio, friends: friends.map(friend => friend.id) });
+      setProfile(response.data)
+      setError('')
       console.log('Profile updated successfully.');
     } catch (err) {
       setError('Failed to update profile.');
@@ -51,7 +53,7 @@ const Profile = () => {
         <h2>Friends</h2>
         <ul>
           {friends.map((friendId) => (
-            <li key={friendId}>{friendId}</li> // You might want to fetch and display the friend's username instead of ID
+            <li key={friendId}>{friendId}</li> 
           ))}
         </ul>
       </div>
