@@ -46,10 +46,10 @@ const Profile = () => {
 
   return (
     <div>
-      <h1>{profile.user.username}'s Profile</h1>
+      <h1 className='underline text-center'>{profile.user.username}'s Profile</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
-        <label>
+        <label className='text-bold text-red-500'>
           Bio:
           <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
         </label>

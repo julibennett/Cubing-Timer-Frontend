@@ -100,7 +100,7 @@ const Home = () => {
     return (
         <div>
             <Timer onNewSolve={createSolve} />
-            <h3>Session Solves</h3>
+            <h3 className="underline">Session Solves</h3>
             <ul>
                 {solves.map((solve) => (
                     <li key={solve.id}>
