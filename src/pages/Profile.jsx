@@ -25,13 +25,18 @@ const Profile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      const response = await api.put('/api/profile/update/', { bio, friends: friends.map(friend => friend.id) });
-      setProfile(response.data)
-      setError('')
+      const updateData = { bio };
+      // add friends  back to bio if you can figure out how
+      console.log('Sending update data:', updateData);
+      await api.put('/api/profile/update/', updateData);
       console.log('Profile updated successfully.');
     } catch (err) {
       setError('Failed to update profile.');
-      console.log(err);
+      if (err.response) {
+        console.log('Update profile error:', err.response.data);  // Log detailed error response
+      } else {
+        console.log('Update profile error:', err);
+      }
     }
   };
 
@@ -49,14 +54,14 @@ const Profile = () => {
           <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
         </label>
       </div>
-      <div>
+      {/* <div>
         <h2>Friends</h2>
         <ul>
-          {friends.map((friendId) => (
-            <li key={friendId}>{friendId}</li> 
+          {friends.map(friendId => (
+            <li key={friendId}>{friendId}</li>
           ))}
         </ul>
-      </div>
+      </div> */}
       <button onClick={handleUpdateProfile}>Update Profile</button>
     </div>
   );
