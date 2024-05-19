@@ -66,7 +66,7 @@ const Chart = () => {
 
   return (
     <div>
-      <h2>Solve Times Chart</h2>
+      <h2 className='text-center'>Solve Times Chart</h2>
       {chartData ? <Line data={chartData} /> : <p>Loading chart...</p>}
     </div>
   );
