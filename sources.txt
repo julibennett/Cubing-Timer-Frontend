@@ -3,3 +3,6 @@ https://stackoverflow.com/questions/66678882/timer-counter-for-react-component-v
 https://www.youtube.com/watch?v=c-QsfbznSXI
 
 https://www.geeksforgeeks.org/integrating-django-with-reactjs-using-django-rest-framework/
+
+https://www.youtube.com/watch?v=x4SkinIjOTc
+

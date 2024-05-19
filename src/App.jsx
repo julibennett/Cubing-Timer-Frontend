@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound'
 import AddFriends from './pages/AddFriends'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
+import Chart from './components/Chart'
 
 function Logout() {
   localStorage.clear()
