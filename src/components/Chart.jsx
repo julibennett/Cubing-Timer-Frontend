@@ -1,45 +1,75 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import api from '../api'
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+import api from '../api'; 
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
 const Chart = () => {
-    const [chartData, setChartData] = useState({});
+  const [chartData, setChartData] = useState(null);
+  const [error, setError] = useState('');
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await api.get('/api/solves/');
-          const solves = response.data;
-  
-          const labels = solves.map(solve => new Date(solve.date).toLocaleDateString());
-          const data = solves.map(solve => solve.solvetime);
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/api/solves/chart-data/');
+        const solveData = response.data;
+        
+        
+        if (Array.isArray(solveData) && solveData.length > 0) {
+          const labels = solveData.map(solve => solve.date);
+          const data = solveData.map(solve => solve.solvetime);
+
           setChartData({
             labels,
             datasets: [
               {
                 label: 'Solve Times',
                 data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
+                borderWidth: 2,
               },
             ],
           });
-        } catch (err) {
-          console.error('Failed to fetch solve times', err);
+        } else {
+          setError('No solve data available');
         }
-      };
-  
-      fetchData();
-    }, []);
-  
-    return (
-      <div>
-        <h2>Solve Time Chart</h2>
-        <Line data={chartData} />
-      </div>
-  )
-}
+      } catch (error) {
+        setError('Error fetching data');
+        console.error('Error fetching data:', error);
+      }
+    };
 
-export default Chart
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  return (
+    <div>
+      <h2>Solve Times Chart</h2>
+      {chartData ? <Line data={chartData} /> : <p>Loading chart...</p>}
+    </div>
+  );
+};
+
+export default Chart;

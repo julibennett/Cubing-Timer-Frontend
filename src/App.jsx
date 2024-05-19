@@ -27,6 +27,7 @@ function App() {
         <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path='/add-friends' element={<ProtectedRoute><AddFriends /></ProtectedRoute>} />
         <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path='/chart' element={<ProtectedRoute><Chart /></ProtectedRoute>} />
         <Route path='/login' element={<Login />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<RegisterAndLogout />} />
