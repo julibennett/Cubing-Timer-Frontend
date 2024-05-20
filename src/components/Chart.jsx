@@ -1,4 +1,3 @@
-// Chart.jsx
 import React, { useEffect, useState } from 'react';
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import {
@@ -13,8 +12,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import api from '../api'; 
-
+import api from '../api';
 
 ChartJS.register(
   CategoryScale,
@@ -39,7 +37,6 @@ const Chart = () => {
         const response = await api.get('/api/solves/chart-data/');
         const solveData = response.data;
 
-        
         if (Array.isArray(solveData) && solveData.length > 0) {
           const labels = solveData.map(solve => new Date(solve.date).toLocaleDateString());
           const data = solveData.map(solve => solve.solvetime);
@@ -67,7 +64,7 @@ const Chart = () => {
               {
                 label: 'Solve Times',
                 data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: 'rgba(250, 226, 104, 2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
               },
@@ -98,6 +95,7 @@ const Chart = () => {
                   type: 'category',
                   ticks: {
                     callback: function(value, index, values) {
+                      // Show the first and last label
                       if (index === 0 || index === values.length - 1) {
                         return this.getLabelForValue(value);
                       }
@@ -135,24 +133,26 @@ const Chart = () => {
   }
 
   return (
-    <div>
-      <h2>Solve Times Chart</h2>
-      <div>
-        <button onClick={() => handleChartTypeChange('line')}>Line Chart</button>
-        <button onClick={() => handleChartTypeChange('bar')}>Bar Chart</button>
-        <button onClick={() => handleChartTypeChange('pie')}>Pie Chart</button>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold mb-4 text-center">Solve Times Chart</h2>
+      <div className="flex justify-center space-x-4 mb-8">
+        <button onClick={() => handleChartTypeChange('line')} className={`px-4 py-2 rounded ${chartType === 'line' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}>Line Chart</button>
+        <button onClick={() => handleChartTypeChange('bar')} className={`px-4 py-2 rounded ${chartType === 'bar' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}>Bar Chart</button>
+        <button onClick={() => handleChartTypeChange('pie')} className={`px-4 py-2 rounded ${chartType === 'pie' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}>Pie Chart</button>
       </div>
-      {chartData ? (
-        chartType === 'line' ? (
-          <Line data={chartData} options={chartData.options} />
-        ) : chartType === 'bar' ? (
-          <Bar data={chartData} options={chartData.options} />
+      <div className="bg-white p-4 rounded-lg shadow-lg">
+        {chartData ? (
+          chartType === 'line' ? (
+            <Line data={chartData} options={chartData.options} />
+          ) : chartType === 'bar' ? (
+            <Bar data={chartData} options={chartData.options} />
+          ) : (
+            <Pie data={chartData.pieData} />
+          )
         ) : (
-          <Pie data={chartData.pieData} />
-        )
-      ) : (
-        <p>Loading chart...</p>
-      )}
+          <p className="text-center">Loading chart...</p>
+        )}
+      </div>
     </div>
   );
 };

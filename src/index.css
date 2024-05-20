@@ -1,5 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/nabla');
 @import url('https://fonts.cdnfonts.com/css/digital-7-mono');
+@import url('https://fonts.cdnfonts.com/css/wheaton');
 
 @tailwind base;
 @tailwind components;
@@ -50,6 +51,8 @@ code {
     transform: translateX(100%);
   }
   
-
+.wheaton {
+    font-family: 'Wheaton', sans-serif;
+}
 
   

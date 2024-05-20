@@ -159,7 +159,7 @@ const Home = () => {
         <h3 className="underline text-xl cursor-pointer" onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)}>
           {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
         </h3>
-        <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+        <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 sticky bottom-0">
           Delete All Solves
         </button>
       </div>

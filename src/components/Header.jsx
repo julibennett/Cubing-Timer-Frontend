@@ -10,36 +10,28 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 p-4 flex justify-between items-center">
-      <Link to="/" className="text-white text-4xl font-bold headfont">
+    <header className="bg-black p-4 flex justify-between items-center sticky top-0 z-50">
+      <nav className="flex flex-1 space-x-4 justify-end">
+        <Link to="/profile" className="text-white hover:text-gray-300 wheaton">
+          Profile
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          <img src="/log-out.png" alt="Logout" className="w-6 h-6" />
+        </button>
+      </nav>
+      <Link to="/" className="flex-1 text-white text-6xl font-bold headfont text-center">
         R U R' U'
-      </Link>      
-      <nav>
-        <ul className="flex space-x-4">
-          <li>
-            <Link to="/profile" className="text-white hover:text-gray-300">
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link to="/add-friends" className="text-white hover:text-gray-300">
-              Add Friends
-            </Link>
-          </li>
-          <li>
-            <Link to="/chart" className="text-white hover:text-gray-300">
-              Charts
-            </Link>
-          </li>
-          <li>
-            <button 
-              onClick={handleLogout} 
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-            >
-              <img src="/log-out.png" alt="Logout" className="w-6 h-6" />
-            </button>
-          </li>
-        </ul>
+      </Link>
+      <nav className="flex flex-1 space-x-4 justify-start">
+        <Link to="/chart" className="text-white hover:text-gray-300 wheaton">
+          Charts
+        </Link>
+        <Link to="/add-friends" className="text-white hover:text-gray-300 wheaton">
+          Add Friends
+        </Link>
       </nav>
     </header>
   );
