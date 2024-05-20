@@ -9,6 +9,7 @@ import AddFriends from './pages/AddFriends'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
 import Chart from './components/Chart'
+import Header from './components/Header.jsx'
 
 function Logout() {
   localStorage.clear()
@@ -23,6 +24,7 @@ function RegisterAndLogout() {
 function App() {
   return (
     <BrowserRouter>
+    <Header />
       <Routes>
         <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path='/add-friends' element={<ProtectedRoute><AddFriends /></ProtectedRoute>} />

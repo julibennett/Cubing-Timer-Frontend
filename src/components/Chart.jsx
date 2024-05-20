@@ -1,3 +1,4 @@
+// Chart.jsx
 import React, { useEffect, useState } from 'react';
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import {
@@ -40,11 +41,10 @@ const Chart = () => {
 
         
         if (Array.isArray(solveData) && solveData.length > 0) {
-          const labels = solveData.map(solve => solve.date);
+          const labels = solveData.map(solve => new Date(solve.date).toLocaleDateString());
           const data = solveData.map(solve => solve.solvetime);
 
-         
-          const thresholds = [1, 2, 3, 4, 5]; 
+          const thresholds = [3, 6, 9, 12, 15, 18];
           const pieData = thresholds.map((threshold, index) => {
             if (index === 0) {
               return solveData.filter(solve => solve.solvetime < threshold).length;
@@ -52,8 +52,14 @@ const Chart = () => {
             return solveData.filter(solve => solve.solvetime >= thresholds[index - 1] && solve.solvetime < threshold).length;
           });
 
-          
           pieData.push(solveData.filter(solve => solve.solvetime >= thresholds[thresholds.length - 1]).length);
+
+          const pieColors = [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', 
+            '#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#AC64AD',
+            '#64E572', '#FFB300', '#FF8A65', '#E57373', '#BA68C8', '#FFD54F', 
+            '#4CAF50', '#81C784', '#90A4AE'
+          ];
 
           setChartData({
             labels,
@@ -67,26 +73,46 @@ const Chart = () => {
               },
             ],
             pieData: {
-              labels: [...thresholds.map((threshold, index) => {
-                if (index === 0) {
-                  return `<${threshold}s`;
-                }
-                return `${thresholds[index - 1]}-${threshold}s`;
-              }), `>${thresholds[thresholds.length - 1]}s`],
+              labels: [
+                ...thresholds.map((threshold, index) => {
+                  if (index === 0) {
+                    return `<${threshold}s`;
+                  }
+                  if (threshold <= 15) {
+                    return `${thresholds[index - 1]}-${threshold}s`;
+                  }
+                  return `${threshold - 10}-${threshold}s`;
+                }),
+                `>${thresholds[thresholds.length - 1]}s`
+              ],
               datasets: [
                 {
                   data: pieData,
-                  backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#4BC0C0',
-                    '#9966FF',
-                    '#FF9F40',
-                  ],
+                  backgroundColor: pieColors.slice(0, pieData.length),
                 },
               ],
             },
+            options: {
+              scales: {
+                x: {
+                  type: 'category',
+                  ticks: {
+                    callback: function(value, index, values) {
+                      if (index === 0 || index === values.length - 1) {
+                        return this.getLabelForValue(value);
+                      }
+                      return null;
+                    }
+                  }
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Time (seconds)'
+                  }
+                }
+              }
+            }
           });
         } else {
           setError('No solve data available');
@@ -118,9 +144,9 @@ const Chart = () => {
       </div>
       {chartData ? (
         chartType === 'line' ? (
-          <Line data={chartData} />
+          <Line data={chartData} options={chartData.options} />
         ) : chartType === 'bar' ? (
-          <Bar data={chartData} />
+          <Bar data={chartData} options={chartData.options} />
         ) : (
           <Pie data={chartData.pieData} />
         )
