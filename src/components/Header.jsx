@@ -10,21 +10,34 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <h1>R U R' U'</h1>
+    <header className="bg-gray-800 p-4 flex justify-between items-center">
+      <Link to="/" className="text-white text-4xl font-bold headfont">
+        R U R' U'
+      </Link>      
       <nav>
-        <ul>
+        <ul className="flex space-x-4">
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/profile" className="text-white hover:text-gray-300">
+              Profile
+            </Link>
           </li>
           <li>
-            <Link to="/add-friends">Add Friends</Link>
+            <Link to="/add-friends" className="text-white hover:text-gray-300">
+              Add Friends
+            </Link>
           </li>
           <li>
-            <Link to="/chart">Charts</Link>
+            <Link to="/chart" className="text-white hover:text-gray-300">
+              Charts
+            </Link>
           </li>
           <li>
-            <button onClick={handleLogout}>Logout</button>
+            <button 
+              onClick={handleLogout} 
+              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+            >
+              Logout
+            </button>
           </li>
         </ul>
       </nav>
