@@ -12,5 +12,7 @@ https://react-chartjs-2.js.org/
 
 https://www.chartjs.org/docs/latest/
 
+https://www.flaticon.com/
+
 
 

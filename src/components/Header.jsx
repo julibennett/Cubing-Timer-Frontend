@@ -36,7 +36,7 @@ const Header = () => {
               onClick={handleLogout} 
               className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
             >
-              Logout
+              <img src="/log-out.png" alt="Logout" className="w-6 h-6" />
             </button>
           </li>
         </ul>
