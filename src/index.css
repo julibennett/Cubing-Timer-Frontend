@@ -28,4 +28,28 @@ code {
 }
 
 
+.solves-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    overflow-y: auto;
+    border-left: 1px solid #ccc;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .solves-panel.visible {
+    transform: translateX(0);
+  }
+  
+  .solves-panel.hidden {
+    transform: translateX(100%);
+  }
+  
+
+
   

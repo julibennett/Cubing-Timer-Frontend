@@ -148,13 +148,13 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
       <Timer onNewSolve={createSolve} />
-        <div className="text-center mt-4">
-            <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
-            <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
-            <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
-        </div>
+      <div className="text-center mt-4">
+        <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
+        <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
+        <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
+      </div>
       <div className="flex justify-between items-center w-full max-w-4xl px-4 mt-4">
         <h3 className="underline text-xl cursor-pointer" onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)}>
           {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
@@ -163,10 +163,9 @@ const Home = () => {
           Delete All Solves
         </button>
       </div>
-   
-      {!isSolvesCollapsed && (
-        <ul className="flex flex-wrap justify-center mt-4">
-          {solves.map((solve) => (
+      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'}`}>
+        <ul className="flex flex-col mt-4">
+          {solves.slice().reverse().map((solve) => (
             <li key={solve.id} className="bg-white shadow-md rounded p-4 m-2">
               {editingId === solve.id ? (
                 <div className="flex flex-col items-center">
@@ -202,7 +201,7 @@ const Home = () => {
             </li>
           ))}
         </ul>
-      )}
+      </div>
     </div>
   );
 };
