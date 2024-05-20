@@ -7,16 +7,48 @@ const Home = () => {
   const [editingId, setEditingId] = useState(null);
   const [editingTime, setEditingTime] = useState('');
   const [isSolvesCollapsed, setIsSolvesCollapsed] = useState(false);
+  const [avgAllSolves, setAvgAllSolves] = useState(0);
+  const [avgLast5Solves, setAvgLast5Solves] = useState(0);
+  const [avgLast12Solves, setAvgLast12Solves] = useState(0);
 
   useEffect(() => {
     getSolves();
   }, []);
+
+  const calculateAverages = (solves) => {
+    if (solves.length > 0) {
+      const totalSolves = solves.length;
+      const totalTime = solves.reduce((sum, solve) => sum + solve.solvetime, 0);
+      setAvgAllSolves(totalTime / totalSolves);
+
+      if (totalSolves >= 5) {
+        const last5Solves = solves.slice(-5);
+        const totalLast5Time = last5Solves.reduce((sum, solve) => sum + solve.solvetime, 0);
+        setAvgLast5Solves(totalLast5Time / 5);
+      } else {
+        setAvgLast5Solves(0);
+      }
+
+      if (totalSolves >= 12) {
+        const last12Solves = solves.slice(-12);
+        const totalLast12Time = last12Solves.reduce((sum, solve) => sum + solve.solvetime, 0);
+        setAvgLast12Solves(totalLast12Time / 12);
+      } else {
+        setAvgLast12Solves(0);
+      }
+    } else {
+      setAvgAllSolves(0);
+      setAvgLast5Solves(0);
+      setAvgLast12Solves(0);
+    }
+  };
 
   const getSolves = () => {
     api.get('/api/solves/')
       .then((res) => {
         console.log(res.data);
         setSolves(res.data);
+        calculateAverages(res.data);
       })
       .catch((err) => {
         console.error('Error fetching solves:', err);
@@ -36,6 +68,23 @@ const Home = () => {
       console.error('Error deleting solve:', error);
       alert('Failed to delete solve:', error.message);
     });
+  };
+
+  const deleteAllSolves = () => {
+    Promise.all(solves.map(solve => api.delete(`/api/solves/${solve.id}/`)))
+      .then((results) => {
+        if (results.every(res => res.status === 204)) {
+          alert('All solves deleted!');
+          setSolves([]); // Clear the solves array
+          calculateAverages([]); // Reset the averages
+        } else {
+          alert('Failed to delete some solves!');
+        }
+      })
+      .catch((error) => {
+        console.error('Error deleting solves:', error);
+        alert('Failed to delete solves:', error.message);
+      });
   };
 
   const startEdit = (solve) => {
@@ -101,9 +150,20 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <Timer onNewSolve={createSolve} />
-      <h3 className="underline text-xl mt-4 cursor-pointer" onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)}>
-        {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
-      </h3>
+        <div className="text-center mt-4">
+            <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
+            <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
+            <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
+        </div>
+      <div className="flex justify-between items-center w-full max-w-4xl px-4 mt-4">
+        <h3 className="underline text-xl cursor-pointer" onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)}>
+          {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
+        </h3>
+        <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+          Delete All Solves
+        </button>
+      </div>
+   
       {!isSolvesCollapsed && (
         <ul className="flex flex-wrap justify-center mt-4">
           {solves.map((solve) => (

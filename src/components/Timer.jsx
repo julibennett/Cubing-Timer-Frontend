@@ -54,7 +54,8 @@ const Timer = ({ onNewSolve }) => {
     } else {
       clearInterval(timerId.current);
       isRunning.current = false;
-      onNewSolve(preciseTimer.current.toFixed(2));
+      const newSolve = parseFloat(preciseTimer.current.toFixed(2));
+      onNewSolve(newSolve);
       setScramble(generateScramble());
     }
   };
@@ -65,7 +66,7 @@ const Timer = ({ onNewSolve }) => {
         <h3 className="text-2xl font-semibold mb-4">{scramble}</h3>
       </div>
       <div className="flex items-center justify-center">
-        <h1 className="text-6xl font-bold timer">{timerDisplay.toFixed(2)}</h1>
+        <h1 className="font-bold timer">{timerDisplay.toFixed(2)}</h1>
       </div>
     </div>
   );
