@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
+  const username = localStorage.getItem('username'); 
+  console.log('Retrieved username:', username);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -12,9 +14,7 @@ const Header = () => {
   return (
     <header className="bg-black p-4 flex justify-between items-center sticky top-0 z-50">
       <nav className="flex flex-1 space-x-4 justify-end">
-        <Link to="/profile" className="text-white hover:text-gray-300 wheaton">
-          Profile
-        </Link>
+        <span className="text-white wheaton">Welcome, {username}</span>
         <button
           onClick={handleLogout}
           className="flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
@@ -29,8 +29,8 @@ const Header = () => {
         <Link to="/chart" className="text-white hover:text-gray-300 wheaton">
           Charts
         </Link>
-        <Link to="/add-friends" className="text-white hover:text-gray-300 wheaton">
-          Add Friends
+        <Link to="/search-users" className="text-white hover:text-gray-300 wheaton">
+          Search Users
         </Link>
       </nav>
     </header>

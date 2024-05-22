@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api';
 
-const AddFriends = () => {
+const SearchUsers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
@@ -13,7 +15,6 @@ const AddFriends = () => {
     }
     try {
       const response = await api.get(`/api/search-users/?username=${searchTerm}`);
-      console.log(response.data);
       setSearchResults(response.data);
       setError('');
     } catch (err) {
@@ -22,24 +23,13 @@ const AddFriends = () => {
     }
   };
 
-  const handleAddFriend = async (userId) => {
-    if (!userId) {
-      console.log('Invalid user ID provided');
-      return;
-    }
-    try {
-      await api.post('/api/add-friend/', { friend_id: userId });
-      console.log('Friend added successfully.');
-      setSearchResults([]);
-    } catch (err) {
-      console.log('Failed to add friend.');
-      console.error(err);
-    }
+  const viewChart = (userId) => {
+    navigate(`/user/${userId}/chart`);
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold text-center mb-6">Add Friends</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Search & View Other Users Chart Data</h1>
       <div className="flex items-center mb-4">
         <input
           type="text"
@@ -61,10 +51,10 @@ const AddFriends = () => {
           <li key={user.id} className="flex justify-between items-center bg-gray-100 p-4 mb-2 rounded-md shadow-sm">
             <span>{user.username}</span>
             <button
-              onClick={() => handleAddFriend(user.id)}
+              onClick={() => viewChart(user.id)}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
             >
-              Add Friend
+              View Chart
             </button>
           </li>
         ))}
@@ -73,4 +63,4 @@ const AddFriends = () => {
   );
 };
 
-export default AddFriends;
+export default SearchUsers;
