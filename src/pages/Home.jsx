@@ -150,7 +150,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-gray-100 relative border-4 border-black overscroll-none">
       <Timer onNewSolve={createSolve} />
-      <div className="text-center mt-4">
+      <div className="text-center mb-60">
         <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
         <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
         <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>

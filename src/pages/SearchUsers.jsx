@@ -23,13 +23,13 @@ const SearchUsers = () => {
     }
   };
 
-  const viewChart = (userId) => {
-    navigate(`/user/${userId}/chart`);
+  const viewUserCharts = (userId, username) => {
+    navigate(`/user/${userId}/chart`, { state: { username } });
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold text-center mb-6">Search & View Other Users Chart Data</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Search Users</h1>
       <div className="flex items-center mb-4">
         <input
           type="text"
@@ -51,10 +51,10 @@ const SearchUsers = () => {
           <li key={user.id} className="flex justify-between items-center bg-gray-100 p-4 mb-2 rounded-md shadow-sm">
             <span>{user.username}</span>
             <button
-              onClick={() => viewChart(user.id)}
+              onClick={() => viewUserCharts(user.id, user.username)}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
             >
-              View Chart
+              View Charts
             </button>
           </li>
         ))}

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import api from '../api';
 import { Line } from 'react-chartjs-2';
 
 const UserChart = () => {
   const { userId } = useParams();
+  const location = useLocation();
+  const { username } = location.state || {};
   const [chartData, setChartData] = useState(null);
   const [error, setError] = useState('');
 
@@ -68,10 +70,12 @@ const UserChart = () => {
   }
 
   return (
-    <div>
-      <h2>User's Solve Times Chart</h2>
+    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-3xl font-bold text-center mb-6">{username}'s Solve Times Chart</h2>
       {chartData ? (
-        <Line data={chartData} options={chartData.options} />
+        <div className="max-w-xl mx-auto">
+          <Line data={chartData} options={chartData.options} />
+        </div>
       ) : (
         <p>Loading chart...</p>
       )}
