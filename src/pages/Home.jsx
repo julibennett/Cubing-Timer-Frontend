@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import Timer from "../components/Timer";
+import { useState, useEffect, useRef } from 'react';
+import Timer from '../components/Timer';
 import api from '../api';
 
 const Home = () => {
@@ -148,7 +148,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
+    <div className="flex flex-col items-center justify-start h-screen bg-gray-100 relative border-4 border-black overscroll-none">
       <Timer onNewSolve={createSolve} />
       <div className="text-center mt-4">
         <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
@@ -159,7 +159,7 @@ const Home = () => {
         <h3 className="underline text-xl cursor-pointer" onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)}>
           {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
         </h3>
-        <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 sticky bottom-0">
+        <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
           Delete All Solves
         </button>
       </div>
