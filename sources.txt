@@ -14,5 +14,18 @@ https://www.chartjs.org/docs/latest/
 
 https://www.flaticon.com/
 
+https://forum.djangoproject.com/t/how-to-use-user-as-foreign-key/5736/5
 
+https://legacy.reactjs.org/docs/hooks-reference.html
 
+https://stackoverflow.com/questions/69941921/the-serializer-field-might-be-named-incorrectly-and-not-match-any-attribute-or-k
+
+https://stackoverflow.com/questions/33249164/how-to-start-a-psql-command-line
+
+https://medium.com/analytics-vidhya/add-friends-with-689a2fa4e41d
+
+https://www.cdnfonts.com/digital-7-mono.font
+
+ChatGPT for debugging and error messages
+
+General Assembly Class Lectures and Notes
