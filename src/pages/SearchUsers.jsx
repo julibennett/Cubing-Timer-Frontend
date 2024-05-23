@@ -5,8 +5,8 @@ import api from '../api';
 const SearchUsers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [starredUsers, setStarredUsers] = useState([]);
   const [error, setError] = useState('');
+  const [starredUsers, setStarredUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,8 +17,8 @@ const SearchUsers = () => {
     try {
       const response = await api.get('/api/starred-users/');
       setStarredUsers(response.data);
-    } catch (err) {
-      console.error('Failed to fetch starred users.', err);
+    } catch (error) {
+      console.error('Error fetching starred users:', error);
     }
   };
 
@@ -37,29 +37,26 @@ const SearchUsers = () => {
     }
   };
 
-  const viewUserCharts = (userId, username) => {
-    navigate(`/user/${userId}/chart`, { state: { username } });
-  };
-
-  const handleStarUser = async (user) => {
+  const handleStarUser = async (userId) => {
     try {
-      await api.post('/api/starred-users/', { starred_user: user.id });
-      fetchStarredUsers();
-    } catch (err) {
-      console.error('Failed to star user.', err);
-      if (err.response && err.response.data) {
-        console.error('Response data:', err.response.data);
-      }
+      await api.post('/api/starred-users/', { starred_user: userId });
+      fetchStarredUsers(); 
+    } catch (error) {
+      console.error('Failed to star user:', error);
     }
   };
 
   const handleUnstarUser = async (userId) => {
     try {
       await api.post('/api/unstar-user/', { starred_user_id: userId });
-      fetchStarredUsers();
-    } catch (err) {
-      console.error('Failed to unstar user.', err);
+      fetchStarredUsers(); 
+    } catch (error) {
+      console.error('Failed to unstar user:', error);
     }
+  };
+
+  const handleViewCharts = (userId, username) => {
+    navigate(`/user/${userId}/chart`, { state: { username } });
   };
 
   return (
@@ -85,44 +82,41 @@ const SearchUsers = () => {
         {searchResults.map((user) => (
           <li key={user.id} className="flex justify-between items-center bg-gray-100 p-4 mb-2 rounded-md shadow-sm">
             <span>{user.username}</span>
-            <div>
-              <button
-                onClick={() => viewUserCharts(user.id, user.username)}
-                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 mr-2"
-              >
-                View Charts
-              </button>
-              <button
-                onClick={() => handleStarUser(user)}
-                className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              >
-                Star
-              </button>
-            </div>
+            <button
+              onClick={() => handleStarUser(user.id)}
+              className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              Star User
+            </button>
           </li>
         ))}
       </ul>
-      <h2 className="text-2xl font-bold text-center mt-8 mb-4">Starred Users</h2>
+
+      <h2 className="text-2xl font-bold text-center my-6">Starred Users</h2>
       <ul>
-        {starredUsers.map(({ id, starred_user }) => (
-          <li key={id} className="flex justify-between items-center bg-gray-100 p-4 mb-2 rounded-md shadow-sm">
-            <span>{starred_user.username}</span>
-            <div>
-              <button
-                onClick={() => viewUserCharts(starred_user.id, starred_user.username)}
-                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 mr-2"
-              >
-                View Charts
-              </button>
-              <button
-                onClick={() => handleUnstarUser(starred_user.id)}
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
-              >
-                Unstar
-              </button>
-            </div>
-          </li>
-        ))}
+        {starredUsers.length > 0 ? (
+          starredUsers.map((user) => (
+            <li key={user.id} className="flex justify-between items-center bg-gray-100 p-4 mb-2 rounded-md shadow-sm">
+              <span>{user.username}</span>
+              <div>
+                <button
+                  onClick={() => handleUnstarUser(user.id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 mr-2"
+                >
+                  Unstar
+                </button>
+                <button
+                  onClick={() => handleViewCharts(user.id, user.username)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  View Charts
+                </button>
+              </div>
+            </li>
+          ))
+        ) : (
+          <p>No starred users</p>
+        )}
       </ul>
     </div>
   );
