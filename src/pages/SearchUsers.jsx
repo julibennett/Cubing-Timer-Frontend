@@ -61,7 +61,11 @@ const SearchUsers = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold text-center mb-6">Search Users</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 wheaton">Search Users</h1>
+      <h4 className='font-bold text-center mb-4 wheaton'>
+        To view another user's chart data, star them!
+        <img src="/icons/star.png" alt="star icon" className="inline-block w-6 h-6" />
+        </h4>
       <div className="flex items-center mb-4">
         <input
           type="text"
@@ -72,7 +76,7 @@ const SearchUsers = () => {
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 wheaton"
         >
           Search
         </button>
@@ -86,13 +90,13 @@ const SearchUsers = () => {
               onClick={() => handleStarUser(user.id)}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
             >
-              Star User
+              <img src="/icons/star.png" alt="Star" className="w-6 h-6" />
             </button>
           </li>
         ))}
       </ul>
 
-      <h2 className="text-2xl font-bold text-center my-6">Starred Users</h2>
+      <h2 className="text-2xl font-bold text-center my-6 wheaton">Starred Users</h2>
       <ul>
         {starredUsers.length > 0 ? (
           starredUsers.map((user) => (
@@ -101,13 +105,13 @@ const SearchUsers = () => {
               <div>
                 <button
                   onClick={() => handleUnstarUser(user.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 mr-2"
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 mr-2 wheaton"
                 >
                   Unstar
                 </button>
                 <button
                   onClick={() => handleViewCharts(user.id, user.username)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 wheaton"
                 >
                   View Charts
                 </button>
