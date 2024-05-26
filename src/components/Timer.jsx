@@ -6,17 +6,37 @@ const Timer = ({ onNewSolve }) => {
   const [timerDisplay, setTimerDisplay] = useState(0);
   const timerId = useRef(null);
   const isRunning = useRef(false);
+  const isPressed = useRef(false);
 
   useEffect(() => {
     setScramble(generateScramble());
-    const handleSpacebar = (event) => {
-      if (event.code === 'Space') {
-        toggleTimer();
+
+    const handleKeyDown = (event) => {
+      if (event.code === 'Space' && !isPressed.current) {
+        isPressed.current = true;
+        if (!isRunning.current) {
+          setTimerDisplay(0);
+        }
       }
     };
-    window.addEventListener('keydown', handleSpacebar);
+
+    const handleKeyUp = (event) => {
+      if (event.code === 'Space' && isPressed.current) {
+        isPressed.current = false;
+        if (!isRunning.current) {
+          startTimer();
+        } else {
+          stopTimer();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
     return () => {
-      window.removeEventListener('keydown', handleSpacebar);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
@@ -42,22 +62,21 @@ const Timer = ({ onNewSolve }) => {
     return scramble.join(' ');
   };
 
-  const toggleTimer = () => {
-    if (!isRunning.current) {
-      isRunning.current = true;
-      preciseTimer.current = 0;
-      setTimerDisplay(0);
-      timerId.current = setInterval(() => {
-        preciseTimer.current += 0.01;
-        setTimerDisplay((old) => old + 0.01);
-      }, 10);
-    } else {
-      clearInterval(timerId.current);
-      isRunning.current = false;
-      const newSolve = parseFloat(preciseTimer.current.toFixed(2));
-      onNewSolve(newSolve);
-      setScramble(generateScramble());
-    }
+  const startTimer = () => {
+    isRunning.current = true;
+    preciseTimer.current = 0;
+    timerId.current = setInterval(() => {
+      preciseTimer.current += 0.01;
+      setTimerDisplay((old) => old + 0.01);
+    }, 10);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId.current);
+    isRunning.current = false;
+    const newSolve = parseFloat(preciseTimer.current.toFixed(2));
+    onNewSolve(newSolve);
+    setScramble(generateScramble());
   };
 
   return (
