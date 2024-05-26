@@ -148,22 +148,25 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen bg-gray-100 relative border-4 border-black overscroll-none">
-      <Timer onNewSolve={createSolve} />
-      <div className="text-center mb-60">
-        <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
-        <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
-        <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
-      </div>
-      <div className="flex justify-between items-center w-full max-w-4xl px-4 mt-4">
-        <h3 className="underline text-xl cursor-pointer" onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)}>
+    <div className="flex flex-col items-center justify-between h-screen bg-gray-100 relative border-4 border-black overscroll-none pt-16"> {/* Added pt-16 for header height */}
+      <div className="flex justify-between items-center w-full max-w-4xl px-4 mt-4 mb-4">
+        <button 
+          onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)} 
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
           {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
-        </h3>
+        </button>
         <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
           Delete All Solves
         </button>
       </div>
-      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'}`}>
+      <Timer onNewSolve={createSolve} />
+      <div className="sticky bottom-0 bg-gray-100 text-center p-4 border-t border-gray-300 w-full">
+        <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
+        <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
+        <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
+      </div>
+      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto`}>
         <ul className="flex flex-col mt-4">
           {solves.slice().reverse().map((solve) => (
             <li key={solve.id} className="bg-white shadow-md rounded p-4 m-2">
