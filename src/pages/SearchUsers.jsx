@@ -64,7 +64,7 @@ const SearchUsers = () => {
       <h1 className="text-3xl font-bold text-center mb-6 wheaton">Search Users</h1>
       <h4 className='font-bold text-center mb-4 wheaton'>
         To view another user's chart data, star them!
-        <img src="/icons/star.png" alt="star icon" className="inline-block w-6 h-6" />
+        <img src="/public/icons/star.png" alt="star icon" className="inline-block w-6 h-6" />
         </h4>
       <div className="flex items-center mb-4">
         <input
@@ -90,7 +90,7 @@ const SearchUsers = () => {
               onClick={() => handleStarUser(user.id)}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
             >
-              <img src="/icons/star.png" alt="Star" className="w-6 h-6" />
+              <img src="/public/icons/star.png" alt="Star" className="w-6 h-6" />
             </button>
           </li>
         ))}

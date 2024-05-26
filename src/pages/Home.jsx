@@ -193,10 +193,10 @@ const Home = () => {
                   <span>{solve.solvetime.toFixed(2)} seconds</span>
                   <div className="flex space-x-2 mt-2">
                     <button onClick={() => deleteSolves(solve.id)} className="hover:opacity-75">
-                      <img src="/icons/bin.png" alt="Delete" className="w-6 h-6" />
+                      <img src="/public/icons/bin.png" alt="Delete" className="w-6 h-6" />
                     </button>
                     <button onClick={() => startEdit(solve)} className="hover:opacity-75">
-                      <img src="/icons/edit.png" alt="Edit" className="w-6 h-6" />
+                      <img src="/public/icons/edit.png" alt="Edit" className="w-6 h-6" />
                     </button>
                   </div>
                 </div>
