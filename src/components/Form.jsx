@@ -45,7 +45,7 @@ function Form({ route, method }) {
     <form onSubmit={handleSubmit} className="bg-black p-8 rounded shadow-md w-full max-w-sm mx-auto mt-16">
       <h1 className="text-white text-2xl font-bold mb-4 wheaton">
         {name }
-        <img src="/public/icons/rubik.png" alt="Cube" className="inline-block w-7 h-7 " />
+        <img src="/icons/rubik.png" alt="Cube" className="inline-block w-7 h-7 " />
         </h1>
       <input
         className="form-input bg-gray-800 text-white p-2 mb-4 rounded border border-gray-700 w-full"
