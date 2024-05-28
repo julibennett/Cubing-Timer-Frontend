@@ -16,13 +16,15 @@ function Form({ route, method }) {
     e.preventDefault();
 
     try {
-      const baseUrl = process.env.REACT_APP_API_URL.trim();
-      const trimmedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+      const baseUrl = process.env.REACT_APP_API_URL;
+      // Remove any surrounding quotes that might have been inadvertently added
+      const sanitizedBaseUrl = baseUrl.replace(/^["']|["']$/g, '');
+      const trimmedBaseUrl = sanitizedBaseUrl.endsWith('/') ? sanitizedBaseUrl.slice(0, -1) : sanitizedBaseUrl;
       const trimmedRoute = route.startsWith('/') ? route.slice(1) : route;
       const apiUrl = `${trimmedBaseUrl}/${trimmedRoute}`;
 
       // Logging for debugging
-      console.log('Base URL:', baseUrl);
+      console.log('Base URL:', sanitizedBaseUrl);
       console.log('Route:', route);
       console.log('Constructed API URL:', apiUrl);
 
