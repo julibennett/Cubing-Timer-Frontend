@@ -17,9 +17,11 @@ function Form({ route, method }) {
 
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
-      const apiUrl = `${baseUrl.replace(/\/+$/, '')}/${route.replace(/^\/+/, '')}`;
-      
-      
+      const trimmedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+      const trimmedRoute = route.startsWith('/') ? route.slice(1) : route;
+      const apiUrl = `${trimmedBaseUrl}/${trimmedRoute}`;
+
+      // Logging for debugging
       console.log('Base URL:', baseUrl);
       console.log('Route:', route);
       console.log('Constructed API URL:', apiUrl);
