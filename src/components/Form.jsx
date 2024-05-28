@@ -16,7 +16,7 @@ function Form({ route, method }) {
     e.preventDefault();
 
     try {
-      const apiUrl = `${process.env.REACT_APP_API_URL}${route}`;
+      const apiUrl = `${process.env.REACT_APP_API_URL}` + route;
       console.log('Submitting to route:', apiUrl);
       const res = await api.post(apiUrl, { username, password });
       console.log('API response:', res);
