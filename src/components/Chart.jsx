@@ -142,7 +142,7 @@ const Chart = () => {
         <button onClick={() => handleChartTypeChange('bar')} className={`px-4 py-2 rounded ${chartType === 'bar' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}>Bar Chart</button>
         <button onClick={() => handleChartTypeChange('pie')} className={`px-4 py-2 rounded ${chartType === 'pie' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}>Pie Chart</button>
       </div>
-      <div className="bg-white p-4 rounded-lg shadow-lg" style={{ height: '400px' }}>
+      <div className="bg-white p-4 rounded-lg shadow-lg" style={chartType === 'pie' ? { height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center' } : { height: '400px' }}>
         {chartData ? (
           chartType === 'line' ? (
             <Line data={chartData} options={chartData.options} height={400} />
