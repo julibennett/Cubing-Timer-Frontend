@@ -80,12 +80,12 @@ const Timer = ({ onNewSolve }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start h-full bg-gray-100 mt-10">
+    <div className="flex flex-col items-center justify-start h-full bg-gray-100 mt-10 p-4 sm:p-6 lg:p-8">
       <div className="text-center mb-4">
-        <h3 className="text-2xl font-semibold mb-3">{scramble}</h3>
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3">{scramble}</h3>
       </div>
       <div className="flex items-center justify-center">
-        <h1 className="font-bold timer text-6xl">{timerDisplay.toFixed(2)}</h1>
+        <h1 className="font-bold timer text-5xl sm:text-6xl lg:text-8xl">{timerDisplay.toFixed(2)}</h1>
       </div>
     </div>
   );
