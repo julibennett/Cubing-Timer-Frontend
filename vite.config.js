@@ -7,4 +7,9 @@ export default defineConfig({
     outDir: 'dist',
   },
   base: '/',
+  define: {
+    'process.env': {
+      REACT_APP_URL: process.env.REACT_APP_URL,
+    },
+  },
 });

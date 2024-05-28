@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ACCESS_TOKEN } from './constants';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_APP_URL
+    baseURL: import.meta.env.REACT_APP_URL
 });
 
 console.log('API Base URL:', import.meta.env.REACT_APP_URL);
