@@ -12,7 +12,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "postbuild": "npm install",
-    "start": "serve -s dist"
+    "start": "http-server ./dist -s"
   },
   "dependencies": {
     "axios": "^1.6.8",
