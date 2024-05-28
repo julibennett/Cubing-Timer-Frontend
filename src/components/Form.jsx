@@ -18,9 +18,12 @@ function Form({ route, method }) {
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
       const apiUrl = new URL(route, baseUrl).href;
+
+      // Logging for debugging
       console.log('Base URL:', baseUrl);
       console.log('Route:', route);
-      console.log('Submitting to route:', apiUrl);
+      console.log('Constructed API URL:', apiUrl);
+
       const res = await api.post(apiUrl, { username, password });
       console.log('API response:', res);
       if (method === 'login') {
