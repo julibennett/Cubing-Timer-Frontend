@@ -18,8 +18,7 @@ function Form({ route, method }) {
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
       // Manually ensure there is a slash between base URL and route
-      const apiUrl = `${baseUrl.replace(/\/+$/, '')}/${route.replace(/^\/+/, '')}`;
-      
+      const apiUrl = `${baseUrl.replace(/\/+$/, '')}/${route.replace(/^\/+/, '')}`;      
       // Logging for debugging
       console.log('Base URL:', baseUrl);
       console.log('Route:', route);
