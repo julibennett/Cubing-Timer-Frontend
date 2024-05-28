@@ -20,14 +20,11 @@ function Form({ route, method }) {
 
       // Strip any extraneous quotes from the environment variable
       baseUrl = baseUrl.replace(/^["']|["']$/g, '');
+      console.log('Sanitized Base URL:', baseUrl);
 
       // Ensure there's a single slash between base URL and route
       const apiUrl = `${baseUrl.replace(/\/+$/, '')}/${route.replace(/^\/+/, '')}`;
-
-      // Logging for debugging
-      console.log('Base URL:', baseUrl);
-      console.log('Route:', route);
-      console.log('Constructed API URL:', apiUrl);
+      console.log('Final API URL:', apiUrl);
 
       const res = await api.post(apiUrl, { username, password });
       console.log('API response:', res);

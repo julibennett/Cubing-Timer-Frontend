@@ -7,18 +7,7 @@ export default defineConfig({
   build: {
     outDir: 'dist'
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: process.env.REACT_APP_API_URL,
-        changeOrigin: true,
-        secure: false
-      }
-    }
-  },
   define: {
-    'process.env': {
-      REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL)
-    }
+    'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL)
   }
 });
