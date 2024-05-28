@@ -167,7 +167,7 @@ const Home = () => {
         <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
       </div>
       <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto w-full max-w-4xl px-4`}>
-        <h2 className="text-xl font-bold mb-2">All Session Solves</h2>
+        <h2 className="text-xl font-bold mb-2 text-center">All Session Solves</h2>
         <ul className="flex flex-col mt-4">
           {solves.slice().reverse().map((solve, index) => (
             <li key={solve.id} className="bg-white shadow-md rounded p-4 m-2">
