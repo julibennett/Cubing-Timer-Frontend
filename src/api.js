@@ -5,6 +5,9 @@ const api = axios.create({
     baseURL: import.meta.env.REACT_APP_URL
 });
 
+console.log('API Base URL:', import.meta.env.REACT_APP_URL);
+
+
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem(ACCESS_TOKEN);
