@@ -9,7 +9,7 @@ export default defineConfig({
   base: '/',
   define: {
     'process.env': {
-      REACT_APP_URL: process.env.REACT_APP_URL,
+      REACT_APP_URL: JSON.stringify(process.env.REACT_APP_URL),
     },
   },
 });
