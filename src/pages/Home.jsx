@@ -167,9 +167,9 @@ const Home = () => {
         <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
       </div>
       <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto w-full max-w-4xl px-4`}>
-        <h2 className="text-xl font-bold mb-2 text-center">All Session Solves</h2>
+        <h2 className="text-xl font-bold mb-2">All Session Solves</h2>
         <ul className="flex flex-col mt-4">
-          {solves.slice().reverse().map((solve, index) => (
+          {solves.map((solve, index) => (
             <li key={solve.id} className="bg-white shadow-md rounded p-4 m-2">
               {editingId === solve.id ? (
                 <div className="flex flex-col items-center">
@@ -191,7 +191,7 @@ const Home = () => {
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
-                  <span className="mb-3 wheaton">{index + 1}) <span className="ml-2">{solve.solvetime.toFixed(2)} seconds</span></span>
+                  <span className="mb-2">{solves.length - index}) <span className="ml-2">{solve.solvetime.toFixed(2)} seconds</span></span>
                   <div className="flex space-x-2 mt-2">
                     <button onClick={() => deleteSolves(solve.id)} className="hover:opacity-75">
                       <img src="/icons/bin.png" alt="Delete" className="w-6 h-6" />
