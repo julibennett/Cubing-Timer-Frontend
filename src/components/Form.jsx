@@ -16,7 +16,7 @@ function Form({ route, method }) {
     e.preventDefault();
 
     try {
-      const baseUrl = process.env.REACT_APP_API_URL;
+      const baseUrl = process.env.REACT_APP_API_URL.trim();
       const trimmedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
       const trimmedRoute = route.startsWith('/') ? route.slice(1) : route;
       const apiUrl = `${trimmedBaseUrl}/${trimmedRoute}`;
