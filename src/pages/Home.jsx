@@ -6,7 +6,7 @@ const Home = () => {
   const [solves, setSolves] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingTime, setEditingTime] = useState('');
-  const [isSolvesCollapsed, setIsSolvesCollapsed] = useState(false);
+  const [isSolvesCollapsed, setIsSolvesCollapsed] = useState(true);
   const [avgAllSolves, setAvgAllSolves] = useState(0);
   const [avgLast5Solves, setAvgLast5Solves] = useState(0);
   const [avgLast12Solves, setAvgLast12Solves] = useState(0);
@@ -148,29 +148,29 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between h-screen bg-gray-100 relative border-4 border-black overscroll-none pt-16"> {/* Added pt-16 for header height */}
-      <div className="flex justify-between items-center w-full max-w-4xl px-4 mt-4 mb-4">
+    <div className="flex flex-col items-center justify-between h-screen bg-gray-100 relative border-4 border-black overscroll-none pt-16 px-2 sm:px-4"> {/* Added pt-16 for header height */}
+      <div className="flex justify-between items-center w-full max-w-4xl mt-4 mb-4 space-x-2 sm:space-x-4">
         <button 
           onClick={() => setIsSolvesCollapsed(!isSolvesCollapsed)} 
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 wheaton"
+          className="bg-blue-500 text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded hover:bg-blue-700 wheaton"
         >
           {isSolvesCollapsed ? 'Show' : 'Hide'} Session Solves
         </button>
-        <button onClick={deleteAllSolves} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 wheaton">
+        <button onClick={deleteAllSolves} className="bg-red-500 text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded hover:bg-red-700 wheaton">
           Delete All Solves
         </button>
       </div>
       <Timer onNewSolve={createSolve} />
-      <div className="sticky bottom-0 bg-gray-100 text-center p-4 border-t border-gray-300 w-full">
+      <div className="sticky bottom-0 bg-gray-100 text-center p-2 sm:p-4 border-t border-gray-300 w-full text-xs sm:text-sm">
         <p>Average of All Solves: {avgAllSolves.toFixed(2)} seconds</p>
         <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
         <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
       </div>
-      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto w-full max-w-4xl px-4`}>
-        <h2 className="text-xl font-bold mb-2 text-center">All Session Solves</h2>
+      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto w-full max-w-4xl`}>
+        <h2 className="text-sm sm:text-xl font-bold mb-2 text-center">All Session Solves</h2>
         <ul className="flex flex-col mt-4 wheaton">
           {solves.map((solve, index) => (
-            <li key={solve.id} className="bg-white shadow-md rounded p-4 m-2">
+            <li key={solve.id} className="bg-white shadow-md rounded p-2 sm:p-4 m-1 sm:m-2 text-xs sm:text-sm">
               {editingId === solve.id ? (
                 <div className="flex flex-col items-center">
                   <input
@@ -182,22 +182,22 @@ const Home = () => {
                     }}
                     step="0.01"
                     min="0.01"
-                    className="mb-2 p-2 border rounded"
+                    className="mb-2 p-1 sm:p-2 border rounded"
                   />
-                  <div className="flex space-x-2">
-                    <button onClick={() => editSolve(solve.id, editingTime)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
-                    <button onClick={cancelEdit} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Cancel</button>
+                  <div className="flex space-x-1 sm:space-x-2">
+                    <button onClick={() => editSolve(solve.id, editingTime)} className="bg-blue-500 text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded hover:bg-blue-700">Save</button>
+                    <button onClick={cancelEdit} className="bg-red-500 text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded hover:bg-red-700">Cancel</button>
                   </div>
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
                   <span className="mb-2">{solves.length - index}) <span className="ml-2">{solve.solvetime.toFixed(2)} seconds</span></span>
-                  <div className="flex space-x-2 mt-2">
+                  <div className="flex space-x-1 sm:space-x-2 mt-2">
                     <button onClick={() => deleteSolves(solve.id)} className="hover:opacity-75">
-                      <img src="/icons/bin.png" alt="Delete" className="w-6 h-6" />
+                      <img src="/icons/bin.png" alt="Delete" className="w-4 h-4 sm:w-6 sm:h-6" />
                     </button>
                     <button onClick={() => startEdit(solve)} className="hover:opacity-75">
-                      <img src="/icons/edit.png" alt="Edit" className="w-6 h-6" />
+                      <img src="/icons/edit.png" alt="Edit" className="w-4 h-4 sm:w-6 sm:h-6" />
                     </button>
                   </div>
                 </div>
