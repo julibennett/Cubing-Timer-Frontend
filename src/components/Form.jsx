@@ -17,7 +17,7 @@ function Form({ route, method }) {
 
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
-      const apiUrl = `${baseUrl.replace(/\/+$/, '')}/${route.replace(/^\/+/, '')}`;
+      const apiUrl = new URL(route, baseUrl).href;
       console.log('Submitting to route:', apiUrl);
       const res = await api.post(apiUrl, { username, password });
       console.log('API response:', res);
