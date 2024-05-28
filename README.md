@@ -13,14 +13,24 @@ lets you view your stats like never before? Look no further than to **R U R' U'*
 
 ## Application Visuals
 
-
-#### Login Page
+#### Login/Register Page
+![Login/Register Page](/screenshots/login.jpeg 'Login')
 
 #### Home/Solve Page
+![Home Page](/screenshots/home.jpeg 'Home/Solve Page')
 
 #### User Charts
+![Line Chart](/screenshots/linechart.jpeg 'Line Chart')
 
-#### Search Users
+![Bar Chart](/screenshots/barchart.jpeg 'Bar Chart')
+
+![Pie Chart](/screenshots/piechart.jpeg 'Pie Chart')
+
+#### Search Users/ View Other User's Charts
+![Search Users](/screenshots/searchusers.jpeg 'Search Users')
+
+![Search Users Chart](/screenshots/searchuserschart.jpeg 'Search Users Chart')
+
 
 ## Technologies Used:
 
@@ -32,6 +42,35 @@ lets you view your stats like never before? Look no further than to **R U R' U'*
 
 ## Resources:
 
+All resources used to build this application are located in the sources.txt file located in this repo!
+
+## Installation Instructions
+
+### Method 1 --> Heroku!
+
+- This app is deployed on Heroku! Simply click the Live link in the links section above! That's all, have fun!!
+
+### Method 2 ---> Cloning!
+
+- `Fork` and `Clone` this repo to your own account and down to your machine.
 
 
+## Potential Future Updates/Debugging
+- Implement all WCA puzzles, not just 3x3!
+- Added tab for being able to add future cubing competitions that a user will be attending!
+- Implementation of the World Cube Association API so that users can check the stats of themselves and other cubers directly from R U R' U'.
+- Make a full profile page for users, complete with profile picture uploading through AWS.
+
+## Author
+
+**Julianna Bennett**
+
+- [Profile](https://github.com/julibennett 'Julianna Bennett')
+- [LinkedIn](https://www.linkedin.com/in/julianna-bennett4/)
+
+## Show Your Support!
+
+Feedback is greatly appreciated! Please feel free to contribute, create an issue, or ask any questions! 
+
+Please leave a ⭐️ if you like this project! Thanks for viewing!
 
