@@ -1,24 +1,21 @@
 import axios from 'axios';
 import { ACCESS_TOKEN } from './constants';
 
-const baseURL = process.env.REACT_APP_API_URL;
-console.log('API Base URL:', baseURL);
-
 const api = axios.create({
-  baseURL: baseURL,
+    baseURL: process.env.REACT_APP_API_URL, 
 });
 
 api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    (config) => {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
 );
 
 export default api;

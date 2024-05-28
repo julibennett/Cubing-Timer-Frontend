@@ -30,7 +30,7 @@ function App() {
         <Route path='/search-users' element={<ProtectedRoute><SearchUsers /></ProtectedRoute>} />
         <Route path='/chart' element={<ProtectedRoute><Chart /></ProtectedRoute>} />
         <Route path='/user/:userId/chart' element={<ProtectedRoute><UserChart /></ProtectedRoute>} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login route='/api/token/' method='login' />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<RegisterAndLogout />} />
         <Route path='*' element={<NotFound />} />
