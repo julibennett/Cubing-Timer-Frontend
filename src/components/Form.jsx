@@ -16,8 +16,9 @@ function Form({ route, method }) {
     e.preventDefault();
 
     try {
-      console.log('Submitting to route:', route);
-      const res = await api.post(route, { username, password });
+      const apiUrl = `${process.env.REACT_APP_URL}${route}`;
+      console.log('Submitting to route:', apiUrl);
+      const res = await api.post(apiUrl, { username, password });
       console.log('API response:', res);
       if (method === 'login') {
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
@@ -31,12 +32,7 @@ function Form({ route, method }) {
     } catch (error) {
       if (error.response) {
         console.error('Error during form submission:', error.response.data);
-        console.log('Error response status:', error.response.status);
-        console.log('Error response headers:', error.response.headers);
         alert(`An error occurred: ${JSON.stringify(error.response.data)}`);
-      } else if (error.request) {
-        console.error('Error during form submission:', error.request);
-        alert('No response received from the server. Please check your network connection.');
       } else {
         console.error('Error during form submission:', error.message);
         alert('An error occurred. Please check the console for details.');
@@ -49,7 +45,7 @@ function Form({ route, method }) {
   return (
     <form onSubmit={handleSubmit} className="bg-black p-8 rounded shadow-md w-full max-w-sm mx-auto mt-16">
       <h1 className="text-white text-2xl font-bold mb-4 wheaton">
-        {name}
+        {name }
         <img src="/icons/rubik.png" alt="Cube" className="inline-block w-7 h-7 " />
       </h1>
       <input
