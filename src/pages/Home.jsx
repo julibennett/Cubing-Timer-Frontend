@@ -191,7 +191,7 @@ const Home = () => {
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
-                  <span className="mb-2">{index + 1}) <span className="ml-2">{solve.solvetime.toFixed(2)} seconds</span></span>
+                  <span className="mb-3 wheaton">{index + 1}) <span className="ml-2">{solve.solvetime.toFixed(2)} seconds</span></span>
                   <div className="flex space-x-2 mt-2">
                     <button onClick={() => deleteSolves(solve.id)} className="hover:opacity-75">
                       <img src="/icons/bin.png" alt="Delete" className="w-6 h-6" />
