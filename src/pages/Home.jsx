@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Timer from '../components/Timer';
 import api from '../api';
 
@@ -166,9 +166,10 @@ const Home = () => {
         <p>Average of Last 5 Solves: {avgLast5Solves.toFixed(2)} seconds</p>
         <p>Average of Last 12 Solves: {avgLast12Solves.toFixed(2)} seconds</p>
       </div>
-      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto`}>
+      <div className={`solves-panel ${isSolvesCollapsed ? 'hidden' : 'visible'} overflow-y-auto w-full max-w-4xl px-4`}>
+        <h2 className="text-xl font-bold mb-2">All Session Solves</h2>
         <ul className="flex flex-col mt-4">
-          {solves.slice().reverse().map((solve) => (
+          {solves.slice().reverse().map((solve, index) => (
             <li key={solve.id} className="bg-white shadow-md rounded p-4 m-2">
               {editingId === solve.id ? (
                 <div className="flex flex-col items-center">
@@ -190,7 +191,7 @@ const Home = () => {
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
-                  <span>{solve.solvetime.toFixed(2)} seconds</span>
+                  <span>{index + 1}. {solve.solvetime.toFixed(2)} seconds</span>
                   <div className="flex space-x-2 mt-2">
                     <button onClick={() => deleteSolves(solve.id)} className="hover:opacity-75">
                       <img src="/icons/bin.png" alt="Delete" className="w-6 h-6" />
