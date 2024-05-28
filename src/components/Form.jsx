@@ -17,13 +17,13 @@ function Form({ route, method }) {
 
     try {
       let baseUrl = process.env.REACT_APP_API_URL;
-      
-      // Strip any extraneous quotes from the environment variable
-      baseUrl = baseUrl.replace(/^['"]+|['"]+$/g, '');
 
-      // Ensure there's a single slash between base URL and route
+      // Ensure base URL doesn't contain surrounding quotes
+      baseUrl = baseUrl.replace(/^["']|["']$/g, '');
+
+      // Construct the API URL
       const apiUrl = `${baseUrl.replace(/\/+$/, '')}/${route.replace(/^\/+/, '')}`;
-      
+
       // Logging for debugging
       console.log('Base URL:', baseUrl);
       console.log('Route:', route);

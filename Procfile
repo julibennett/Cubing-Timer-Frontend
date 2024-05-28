@@ -1,1 +1,1 @@
-web: http-server ./dist -s
+web: npm run start
