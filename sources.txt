@@ -26,6 +26,10 @@ https://medium.com/analytics-vidhya/add-friends-with-689a2fa4e41d
 
 https://www.cdnfonts.com/digital-7-mono.font
 
+https://vitejs.dev/guide/
+
+https://rollupjs.org/introduction/
+
 ChatGPT for debugging and error messages
 
 General Assembly Class Lectures and Notes

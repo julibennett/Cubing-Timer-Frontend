@@ -59,7 +59,7 @@ const Home = () => {
   const deleteSolves = (id) => {
     api.delete(`/api/solves/${id}/`).then((res) => {
       if (res.status === 204) {
-        alert('Solve deleted!');
+        // alert('Solve deleted!');
         getSolves();
       } else {
         alert('Failed to delete solve!');
@@ -75,8 +75,8 @@ const Home = () => {
       .then((results) => {
         if (results.every(res => res.status === 204)) {
           alert('All solves deleted!');
-          setSolves([]); // Clear the solves array
-          calculateAverages([]); // Reset the averages
+          setSolves([]); 
+          calculateAverages([]); 
         } else {
           alert('Failed to delete some solves!');
         }
